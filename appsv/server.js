@@ -10,7 +10,7 @@ var changeProfile = false;
 var changePass = false;
 var nowUsername = "";
 var nowPassword = "";
-
+console.log("Test");
 var Student = [];
 var profile = fs.readFileSync("./database/Student.json");
 if (profile) {

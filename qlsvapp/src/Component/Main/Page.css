@@ -1,0 +1,306 @@
+* {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+.container {
+  border: none;
+  padding: 0;
+  width: 100%;
+  position: center;
+  margin: 0 auto;
+  border-style: groove;
+  border-color: yellow;
+  background-color: rgb(178, 202, 215);
+}
+
+.header h1 {
+  text-align: center;
+  font-weight: 50px;
+  font-size: 35px
+}
+
+.menu ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu ul li {
+  color: rgb(103, 9, 226);
+  text-transform: uppercase;
+  display: inline-block;
+  position: fix;
+  font-size: 15px;
+  padding: 5px 0 25px 0;
+  border-style: double;
+  background: rgb(117, 211, 117);
+  width: 180px;
+  height: 30px;
+  margin: 0 auto;
+}
+
+.menu li input {
+  color: rgb(5, 70, 32);
+  list-style-type: none;
+  font-weight: 700;
+}
+
+.menu input:hover {
+  color: rgb(212, 80, 87);
+}
+
+.ds {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  text-transform: capitalize;
+  transform-style: preserve-3d;
+  color: blue;
+  text-decoration: none;
+  text-decoration-style: none;
+  text-align: center;
+}
+
+.ql {
+  color: rgb(2, 71, 2);
+  box-align: right;
+  font-size: 15px;
+  border-style: ridge;
+  margin: 0 50px -100px 50px;
+  padding: 0 0 40px 0;
+  background-color: #E8DFCE;
+}
+
+.ql select {
+  text-align: center;
+  width: 140px;
+}
+
+.ql input {
+  text-align: center;
+  background-position: right;
+  block-size: 25px;
+  color: rgb(96, 8, 212);
+}
+
+.ql p {
+  font-size: 15px;
+}
+
+.ql h3 {
+  color: rgb(119, 42, 42);
+}
+
+.SP:hover .sp {
+  display: block;
+}
+
+.SP input {
+  border: none;
+  outline: none;
+  background: rgb(117, 211, 117);
+}
+
+.sp {
+  display: none;
+  position: absolute;
+  box-shadow: 0px 8px 16px 0px rgba(25, 238, 5, 0.2);
+}
+
+.sp input {
+  display: block;
+  background: rgb(201, 235, 50);
+  padding: 6px 0 25px 0;
+  width: 175px;
+  height: 30px;
+  border-style: ridge;
+  font-size: 13px
+}
+
+.menu {
+  padding: 15px 0 120px 0;
+}
+
+.footer {
+  border-style: groove;
+  border-color: rgb(74, 144, 224);
+  background-color: rgb(9, 87, 110);
+  color: rgb(241, 205, 147);
+  margin: 1px 5px 1px 5px;
+}
+
+.header {
+  border-style: groove;
+  border-color: rgb(211, 88, 88);
+  background-color: rgb(39, 169, 209);
+  padding: 0 20px 0 20px;
+  margin: 1px 5px 0 5px;
+}
+
+.body {
+  border-style: groove;
+  border-color: rgb(155, 218, 218);
+  margin: -20px 5px 0 5px;
+  padding: 0px 0px 150px 0px;
+  background-color: rgb(175, 206, 211);
+}
+
+.s1 {
+  padding: 40px 25px 15px 0;
+  background-color: rgba(126, 201, 245, 0.658);
+  text-align: right;
+  color: rgb(4, 21, 250);
+}
+
+.s2 {
+  padding: 0 0 20px 0;
+  background-color: rgba(126, 201, 245, 0.658);
+}
+
+.lg {
+  color: rgb(139, 21, 21);
+  font-size: 30cm;
+  text-decoration: antiquewhite;
+}
+
+.Hello {
+  font-weight: 1000;
+  color: rgb(0, 0, 3);
+}
+
+.if {
+  margin: -250px 0 0 200px;
+}
+
+.table {
+  margin: 0 0 0 220px;
+}
+
+.Login {
+  padding: 25px 0 0 0;
+  border-style: groove;
+  height: 420px;
+  width: 300px;
+  margin: 0 auto;
+  background-color: #89D837;
+}
+
+.Login input {
+  border-radius: 5px;
+  height: 30px;
+}
+
+.Register {
+  border-style: groove;
+  width: 500px;
+  height: 1050px;
+  margin: 0 auto;
+  background-color: #E4ECB7;
+}
+
+.Register input {
+  border-radius: 5px;
+  height: 30px;
+  width: 250px;
+  margin: 0 0 15px 0;
+}
+
+.Sign input {
+  margin: 20px 0 0 0;
+  width: 100px;
+  background-color: #6ED96E;
+}
+
+.logout {
+  border-radius: 10px;
+  height: 30px;
+  color: #050405;
+}
+
+.ReturnLogin {
+  margin: 15px 0 0 0;
+  font-weight: 50px;
+}
+
+.ReturnLogin input {
+  background-color: #7777D2;
+  height: 40px;
+}
+
+.rg {
+  margin: 35px 0 -5px 0;
+}
+
+.RegisterHead {
+  color: green;
+  text-transform: uppercase;
+}
+
+.Register select {
+  margin: 15px 0 0 0;
+  width: 150px;
+  height: 25px;
+}
+
+.content img {
+  width: 100%;
+  height: 100%;
+  margin: 0 0 -44px 0;
+}
+
+.changInfor {
+  margin: 15px 0 0 0;
+}
+
+.changInfor input {
+  border-radius: 10px;
+  height: 35px;
+  font-weight: 700;
+  color: rgb(0, 38, 255);
+  background-color: rgb(236, 175, 96);
+}
+
+.infor {
+  border-style: groove;
+  margin: 15px auto;
+  width: 80%;
+  background-color: rgb(213, 231, 112);
+  color: rgb(236, 46, 46);
+}
+
+.ChangeInfo {
+  border-style: solid;
+  width: 50%;
+  margin: 0 auto;
+  color: rgb(11, 114, 28);
+  background-color: lightblue;
+}
+
+.ChangeInfoHead {
+  color: rgb(2, 95, 18);
+}
+
+.CiSign {
+  margin: 15px 0 20px 0;
+}
+
+.CiSign input {
+  border-radius: 5px;
+  height: 30px;
+  color: rgb(136, 25, 25);
+  font-size: 16px;
+  font-weight: 550;
+}
+
+.CiReturn {
+  margin: 15px 0 20px 0;
+}
+
+.CiReturn input {
+  border-radius: 10px;
+  height: 30px;
+  width: 100px;
+  color: rgb(42, 25, 136);
+  font-size: 16px;
+  font-weight: 550;
+}

@@ -7,9 +7,10 @@ import TermSubject from "../Content/StudentInfor/TermSubject";
 import TimeManage from "../Content/TimeManage/TimeManage";
 import MoneyManage from "../Content/MoneyManage/MoneyManage";
 import MarkManage from "../Content/MarkManage/MarkManage";
-import TimeChart from "../Content/Chart/TimeChart";
-import MoneyChart from "../Content/Chart/MoneyChart";
-import MarkChart from "../Content/Chart/MarkChart";
+import TimeKPI from "../Content/TimeKPI/TimeKPI";
+import MoneyKPI from "../Content/MoneyKPI/MoneyKPI";
+import MarkKPI from "../Content/MarkKPI/MarkKPI";
+
 import Contact from "../Content/Support/Contact";
 import AboutUs from "../Content/Support/AboutUs";
 
@@ -63,84 +64,20 @@ export default class DashBoard extends React.Component {
 
   renderContent = () => {
     switch (this.state.contentState) {
-      case 1.1:
-        return (
-          <div className="ql">
-            <InforStudent />
-          </div>
-        );
-      case 1.2:
-        return (
-          <div className="ql">
-            <ChangePassword />
-          </div>
-        );
-      case 1.3:
-        return (
-          <div className="ql">
-            <TermSubject />
-          </div>
-        );
-      case 2.1:
-        return (
-          <div className="ql">
-            <TimeManage />
-          </div>
-        );
-      case 2.2:
-        return (
-          <div className="ql">
-            <MoneyManage />
-          </div>
-        );
-      case 2.3:
-        return (
-          <div className="ql">
-            <MarkManage />
-          </div>
-        );
-      case 3.1:
-        return (
-          <div className="ql">
-            <TimeChart />
-          </div>
-        );
-      case 3.2:
-        return (
-          <div className="ql">
-            <MoneyChart />
-          </div>
-        );
-      case 3.3:
-        return (
-          <div className="ql">
-            <MarkChart />
-          </div>
-        );
-      case 4:
-        return (
-          <div className="ql">
-            <Contact />
-          </div>
-        );
-      case 5:
-        return (
-          <div className="ql">
-            <AboutUs />
-          </div>
-        );
-      default:
-        return (
-          <div className="ql">
-            <Home />
-          </div>
-        );
+      case 1.1: return (<div className="ql"><InforStudent /></div>);
+      case 1.2: return (<div className="ql"><ChangePassword /></div>);
+      case 1.3: return (<div className="ql"><TermSubject /></div>);
+      case 2.1: return (<div className="ql"><TimeManage /></div>);
+      case 2.2: return (<div className="ql"><MoneyManage /></div>);
+      case 2.3: return (<div className="ql"><MarkManage /></div>);
+      case 3.1: return (<div className="ql"><TimeKPI /></div>);
+      case 3.2: return (<div className="ql"><MoneyKPI /></div>);
+      case 3.3: return (<div className="ql"><MarkKPI /></div>);
+      case 4: return (<div className="ql"><Contact /></div>);
+      case 5: return (<div className="ql"><AboutUs /></div>);
+      default: return (<div className="ql"><Home /></div>);
     }
   };
-
-  checkLogout = () => {
-
-  }
 
   render() {
     return (
@@ -184,11 +121,11 @@ export default class DashBoard extends React.Component {
                 </li>
                 <li>
                   <div className="SP">
-                    <input type="button" value="BIỂU ĐỒ QUẢN LÍ" ></input>
+                    <input type="button" value="TÍNH KPI SINH VIÊN" ></input>
                     <div className="sp">
-                      <input type="button" value="BIỂU ĐỒ THỜI GIAN" onClick={() => { this.updateContentState(3.1); }} />
-                      <input type="button" value="BIỂU ĐỒ CHI TIÊU" onClick={() => { this.updateContentState(3.2); }} />
-                      <input type="button" value="BIỂU ĐỒ ĐIỂM SỐ" onClick={() => { this.updateContentState(3.3); }} />
+                      <input type="button" value="KPI THỜI GIAN" onClick={() => { this.updateContentState(3.1); }} />
+                      <input type="button" value="KPI CHI TIÊU" onClick={() => { this.updateContentState(3.2); }} />
+                      <input type="button" value="KPI ĐIỂM SỐ" onClick={() => { this.updateContentState(3.3); }} />
                     </div>
                   </div>
                 </li>

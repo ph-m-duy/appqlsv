@@ -1,8 +1,5 @@
 import React from "react";
-import MaSub from "./TDayManage";
-import TWeek from "./TWeekManage";
-import TMonth from "./TMonthManage";
-import TTerm from "./TTermManage";
+
 
 export default class TManage extends React.Component {
   constructor(props) {
@@ -21,10 +18,10 @@ export default class TManage extends React.Component {
 
   chooseTime = (val) => {
     switch (val) {
-      case "Ngày": return (<div><p>Quản lí thời gian theo Ngày</p><TDay /></div>);
-      case "Tuần": return (<div><p>Quản lí thời gian theo Tuần</p><TWeek /></div>);
-      case "Tháng": return (<div><p>Quản lí thời gian theo Tháng</p><TMonth /></div>);
-      case "Kì": return (<div><p>Quản lí thời gian theo Kì</p><TTerm /></div>);
+      case "Ngày": return (<div><p>Quản lí thời gian theo Ngày</p></div>);
+      case "Tuần": return (<div><p>Quản lí thời gian theo Tuần</p></div>);
+      case "Tháng": return (<div><p>Quản lí thời gian theo Tháng</p></div>);
+      case "Kì": return (<div><p>Quản lí thời gian theo Kì</p></div>);
       default:
     }
   }

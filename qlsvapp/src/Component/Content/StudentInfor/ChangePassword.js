@@ -11,7 +11,7 @@ export default class LoginForm extends React.Component {
         };
     }
 
-    register = (checkEmpty, checkOld, checkSame, successRegister, _oldpass, _newpass, _confirmpass) => {
+    changePassWord = (checkEmpty, checkOld, checkSame, successRegister, _oldpass, _newpass, _confirmpass) => {
         var options = {
             method: "POST",
             url: "http://localhost:8081/ChangePassword",
@@ -22,6 +22,7 @@ export default class LoginForm extends React.Component {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
+                check: "1",
                 oldpass: _oldpass,
                 newpass: _newpass,
                 confirmpass: _confirmpass
@@ -52,26 +53,27 @@ export default class LoginForm extends React.Component {
 
     successRegister = () => {
         alert("Bạn đã cập nhật mật khẩu thành công!!!");
-        return (
-            <div>
-                {this.props.upRegister()}
-            </div>
-        )
     }
 
     updateVal = (val, e) => {
         let _val = e.target.value
         switch (val) {
-            case "fullname":
+            case "oldpass":
                 this.setState({
-                    fullname: _val
+                    oldpass: _val
                 })
                 break;
-            case "username":
+            case "newpass":
                 this.setState({
-                    username: _val
+                    newpass: _val
                 })
                 break;
+            case "confirmpass":
+                this.setState({
+                    confirmpass: _val
+                })
+                break;
+            default:
         }
     }
 
@@ -81,18 +83,18 @@ export default class LoginForm extends React.Component {
                 <form className="changePass">
 
                     <p className="Cp">Mật khẩu hiện tại</p>
-                    <input type="text" value={this.state.oldpass} onChange={e => this.updateVal("fullname", e)}  ></input>
+                    <input type="password" value={this.state.oldpass} onChange={e => this.updateVal("oldpass", e)}  ></input>
 
                     <p className="Cp">Mật khẩu mới</p>
-                    <input type="text" value={this.state.newpass} onChange={e => this.updateVal("MSSV", e)}   ></input>
+                    <input type="password" value={this.state.newpass} onChange={e => this.updateVal("newpass", e)}   ></input>
 
                     <p className="Cp">Xác nhận lại mật khẩu mới</p>
-                    <input type="text" value={this.state.confirmpass} onChange={e => this.updateVal("username", e)}  ></input>
+                    <input type="password" value={this.state.confirmpass} onChange={e => this.updateVal("confirmpass", e)}  ></input>
 
                     <div className="SignPass" >
                         <input type="button"
                             value="Xác nhận"
-                            onClick={() => { this.register(this.checkempty, this.checksame, this.successRegister, this.state.fullname, this.state.username, this.state.password, this.state.MSSV, this.state.startterm, this.state.major); }} />
+                            onClick={() => { this.changePassWord(this.checkEmpty, this.checkOld, this.checkSame, this.successRegister, this.state.oldpass, this.state.newpass, this.state.confirmpass); }} />
                     </div>
                 </form>
             </div>

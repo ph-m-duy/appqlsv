@@ -3,45 +3,69 @@ var bodyParser = require("body-parser");
 var app = express();
 var fs = require("fs");
 var cors = require("cors");
-
+//----------------------------------------------------------------------------------------------------
 var checkLogin = false;
 var checkRegister = false;
 var changeProfile = false;
 var changePass = false;
 var nowUsername = "";
 var nowPassword = "";
-console.log("Test");
+//----------------------------------------------------------------------------------------------------
 var Student = [];
 var profile = fs.readFileSync("./database/Student.json");
 if (profile) {
   Student = JSON.parse(profile);
 }
-
-// var MoneyManage = [];
-// var money = fs.readFileSync("./database/TimeManage.json");
-// if (money) {
-//   MoneyManage = JSON.parse(money);
-// }
+studenttemp = {
+  fullname: "",
+  username: "",
+  password: "",
+  MSSV: "",
+  startterm: "",
+  major: ""
+}
+//----------------------------------------------------------------------------------------------------
+var allsubject = fs.readFileSync("./database/AllSubject.json");
+var AllSubject = JSON.parse(allsubject);
+//----------------------------------------------------------------------------------------------------
+var SubjectTerm = []
+var subject = fs.readFileSync("./database/SubjectTerm.json");
+if (subject) {
+  SubjectTerm = JSON.parse(subject);
+}
+subjecttemp = {
+  username: nowUsername,
+  term: "",
+  subjectall: []
+}
+//----------------------------------------------------------------------------------------------------
+var MoneyManage = [];
+var money = fs.readFileSync("./database/TimeManage.json");
+if (money) {
+  MoneyManage = JSON.parse(money);
+}
+//----------------------------------------------------------------------------------------------------
 
 app.use(cors());
 
+//----------------------------------------------------------------------------------------------------
 var corsOptions = {
   body: "*",
   origin: "*",
   optionsSuccessStatus: 200
 };
+//----------------------------------------------------------------------------------------------------
 
 app.use(bodyParser.json());
 
+
+
+//-----------------------------------Login-----------------------------------------------------------------
 app.post("/Login", cors(corsOptions), function (req, res, next) {
   // console.log(req.body.username);
   // console.log(req.body.password);
-
   Student.forEach(item => {
-    if (
-      item.username == req.body.username &&
-      item.password == req.body.password
-    ) {
+    if (item.username == req.body.username && item.password == req.body.password) {
       res.send("1");
       nowUsername = req.body.username;
       nowPassword = req.body.password;
@@ -53,11 +77,13 @@ app.post("/Login", cors(corsOptions), function (req, res, next) {
   }
 });
 
+
+//----------------------------------Register------------------------------------------------------------------
 app.post("/Register", cors(corsOptions), function (req, res, next) {
   // console.log(req.body);
   if (req.body.check == "1") checkRegister = false;
   Student.forEach(item => {
-    if (req.body.fullname == "" || req.body.MSSV == "" || req.body.username == "" || req.body.password == "" || req.body.startterm == "" || req.body.major == "") {
+    if (Object.keys(req.body.fullname).length == 0 || Object.keys(req.body.MSSV).length == 0 || Object.keys(req.body.username).length == 0 || Object.keys(req.body.password).length == 0 || Object.keys(req.body.startterm).length == 0 || Object.keys(req.body.major).length == 0) {
       res.send("0");
       checkRegister = true;
     }
@@ -70,15 +96,19 @@ app.post("/Register", cors(corsOptions), function (req, res, next) {
     res.send("2");
     var userData = req.body;
     Student.push(userData);
-    nowUsername = req.body.username;
+    // nowUsername = req.body.username;
     var Regis = fs.writeFileSync("./database/Student.json", JSON.stringify(Student), function (err) {
       if (err) throw err;
-      // console.log("Saved!");
+      console.log(Student)
     });
   }
 });
 
+
+//------------------------------------Dashboard----------------------------------------------------------------
 app.post("/Dashboard", cors(corsOptions), function (req, res, next) {
+  console.log("tên đăng nhập:" + nowUsername);
+
   Student.forEach(item => {
     if (item.username === nowUsername) {
       res.send(item.fullname);
@@ -87,10 +117,12 @@ app.post("/Dashboard", cors(corsOptions), function (req, res, next) {
   })
   // console.log(req.body.checkLogout);
   if (req.body.checkLogout == "1") {
-    checkLogin = true;
+    checkLogin = false;
   }
 });
 
+
+//--------------------------------------Information--------------------------------------------------------------
 app.post("/Information", cors(corsOptions), function (req, res, next) {
   Student.forEach(item => {
     if (item.username === nowUsername) {
@@ -100,41 +132,113 @@ app.post("/Information", cors(corsOptions), function (req, res, next) {
   })
 });
 
+
+//-----------------------------------------ChangeInfor-----------------------------------------------------------
 app.post("/ChangeInfor", cors(corsOptions), function (req, res, next) {
   console.log(req.body);
   if (req.body.check == "1") changeProfile = false;
-  if (req.body.fullname == "" || req.body.MSSV == "" || req.body.username == "" || req.body.password == "" || req.body.startterm == "" || req.body.major == "") {
+  if (Object.keys(req.body.fullname).length == 0 || Object.keys(req.body.MSSV).length == 0 || Object.keys(req.body.startterm).length == 0 || Object.keys(req.body.major).length == 0) {
     res.send("0");
     changeProfile = true;
   }
-  if (changeProfile) {
+  if (!changeProfile) {
     res.send("1");
-    Student.forEach(item => {
+    Student.forEach((item, index) => {
       if (item.username == nowUsername) {
-        item.fullname = req.body.fullname;
-        item.MSSV = req.body.MSSV;
-        item.startterm = req.body.startterm;
-        item.major = req.body.major;
+        studenttemp.username = nowUsername;
+        studenttemp.fullname = req.body.fullname;
+        studenttemp.password = nowPassword;
+        studenttemp.MSSV = req.body.MSSV;
+        studenttemp.startterm = req.body.startterm;
+        studenttemp.major = req.body.major;
+        Student.splice(index, 1);
         console.log(item.username);
       }
     })
+    Student.push(studenttemp);
+    var Regis = fs.writeFileSync("./database/Student.json", JSON.stringify(Student), function (err) {
+      if (err) throw err;
+      console.log(Student);
+    });
   }
-
 });
 
+
+//----------------------------------------ChangePassword------------------------------------------------------------
 app.post("/ChangePassword", cors(corsOptions), function (req, res, next) {
-  res.send("1");
+  if (req.body.check == "1") changePass = false;
   console.log(req.body);
-  if (req.body.oldpass == "") {
-
+  if (Object.keys(req.body.oldpass).length == 0 || Object.keys(req.body.newpass).length == 0 || Object.keys(req.body.confirmpass).length == 0) {
+    // if (Object.keys(req.body.oldpass).length == 0 || Object.keys(req.body.newpass).length == 0 || Object.keys(req.body.confirmpass).length == 0) {
+    res.send("0");
+    changePass = true;
+  }
+  if (req.body.oldpass != nowPassword) {
+    res.send("1");
+    changePass = true;
+  }
+  if (req.body.newpass != req.body.confirmpass) {
+    res.send("2")
+    changePass = true;
+  }
+  if (!changePass) {
+    res.send("3");
+    Student.forEach((item, index) => {
+      if (item.username == nowUsername) {
+        studenttemp.username = nowUsername;
+        studenttemp.fullname = item.fullname;
+        studenttemp.password = req.body.confirmpass;
+        studenttemp.MSSV = item.MSSV;
+        studenttemp.startterm = item.startterm;
+        studenttemp.major = item.major;
+        console.log(item.password);
+        Student.splice(index, 1);
+        nowPassword = studenttemp.password;
+      }
+    })
+    Student.push(studenttemp);
+    var Regis = fs.writeFileSync("./database/Student.json", JSON.stringify(Student), function (err) {
+      if (err) throw err;
+      console.log(Student);
+    });
   }
 });
 
-app.post("/TermSub", cors(corsOptions), function (req, res, next) {
-  res.send("1");
+
+//---------------------------------------SubjectManage-------------------------------------------------------------
+app.post("/SubjectManage", cors(corsOptions), function (req, res, next) {
   console.log(req.body);
+  switch (req.body.check) {
+    case "0":
+      AllSubject.forEach(item => {
+        if (req.body.id != item.id) {
+          res.send("0");
+        }
+        else {
+          res.send(item.subjectname);
+        }
+      })
+      break;
+    case "1":
+      subjecttemp.term = req.body.term;
+      subjecttemp.subject.push(req.body.subject);
+      SubjectTerm.push(subjecttemp);
+      var sub = fs.writeFileSync("./database/SubjectTerm.json", JSON.stringify(SubjectTerm), function (err) {
+        if (err) throw err;
+        console.log(SubjectTerm);
+      })
+      res.send(subjecttemp.subject);
+    case "2":
+      SubjectTerm.forEach((item, index) => {
+        if (item.subjectall.subjectname == req.body.subjectlist.subjectname){
+
+        }
+      })
+  }
 });
 
+
+//-------------------------------------------TimeManage---------------------------------------------------------
 app.post("/TimeManage", cors(corsOptions), function (req, res, next) {
   console.log(req.body);
   var timereq = JSON.stringify(req.body)
@@ -145,6 +249,8 @@ app.post("/TimeManage", cors(corsOptions), function (req, res, next) {
   res.send("1");
 });
 
+
+//--------------------------------------------MoneyManage--------------------------------------------------------
 app.post("/MoneyManage", cors(corsOptions), function (req, res, next) {
   console.log(req.body);
   var moneyreq = JSON.stringify(req.body)
@@ -154,26 +260,30 @@ app.post("/MoneyManage", cors(corsOptions), function (req, res, next) {
   });
   res.send("1");
 });
-
+//----------------------------------------------------------------------------------------------------
 app.post("/MarkManage", cors(corsOptions), function (req, res, next) {
   res.send("Hello");
   console.log(req.body);
 });
-
+//----------------------------------------------------------------------------------------------------
 app.post("/MarkChart", cors(corsOptions), function (req, res, next) {
   res.send("Hello");
 });
-
+//----------------------------------------------------------------------------------------------------
 app.post("/MoneyChart", cors(corsOptions), function (req, res, next) {
   res.send("Hello");
 });
-
+//----------------------------------------------------------------------------------------------------
 app.post("/TimeChart", cors(corsOptions), function (req, res, next) {
   var timeCha = fs.readFileSync("./database/TimeManage.json");
   var tiCha = JSON.parse(timeCha);
   res.send(tiCha);
   console.log(tiCha);
 });
+
+
+//----------------------------------------------------------------------------------------------------
+
 
 var server = app.listen(8081, function () {
   var host = server.address().address;

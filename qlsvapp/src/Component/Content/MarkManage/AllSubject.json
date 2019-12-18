@@ -1,0 +1,126 @@
+[
+    {
+        "id": "IT1110",
+        "subjectname": "Tin học đại cương"
+    },
+    {
+        "id": "IT3150",
+        "subjectname": "Project I"
+    },
+    {
+        "id": "IT320",
+        "subjectname": "Project II"
+    },
+    {
+        "id": "IT3930",
+        "subjectname": "Project III"
+    },
+    {
+        "id": "IT3080",
+        "subjectname": "Mạng máy tính"
+    },
+    {
+        "id": "IT3090",
+        "subjectname": "Cơ sở dữ liệu"
+    },
+    {
+        "id": "IT3100",
+        "subjectname": "Lập trình hướng đối tượng"
+    },
+    {
+        "id": "IT3180",
+        "subjectname": "Nhập môn công nghệ phần mềm"
+    },
+    {
+        "id": "IT3160",
+        "subjectname": "Nhập môn trí tuệ nhân tạo"
+    },
+    {
+        "id": "ED3280",
+        "subjectname": "Tâm lý học ứng dụng"
+    },
+    {
+        "id": "ED3220",
+        "subjectname": "Kỹ năng mềm"
+    },
+    {
+        "id": "IT2000",
+        "subjectname": "Nhập môn CNTT & Truyền thông"
+    },
+    {
+        "id": "FL1101",
+        "subjectname": "Tiếng Anh 2"
+    },
+    {
+        "id": "MI1111",
+        "subjectname": "Giải tích I"
+    },
+    {
+        "id": "MI1141",
+        "subjectname": "Đại số"
+    },
+    {
+        "id": "MIL1120",
+        "subjectname": "Công tác quốc phòng an ninh"
+    },
+    {
+        "id": "SSH1110",
+        "subjectname": "Những NLCB của CNML I"
+    },
+    {
+        "id": "PE1010",
+        "subjectname": "Giáo dục thể chất A"
+    },
+    {
+        "id": "EM1170",
+        "subjectname": "Pháp luật đại cương"
+    },
+    {
+        "id": "MI1121",
+        "subjectname": "Giải tích II"
+    },
+    {
+        "id": "MI1131",
+        "subjectname": "Giải tích III"
+    },
+    {
+        "id": "MIL1110",
+        "subjectname": "Đường lối quân sự"
+    },
+    {
+        "id": "PE2151",
+        "subjectname": "Erobic"
+    },
+    {
+        "id": "PH1110",
+        "subjectname": "Vật lý đại cương I"
+    },
+    {
+        "id": "SSH1120",
+        "subjectname": "Những NLCB của CNML II"
+    },
+    {
+        "id": "IT3020",
+        "subjectname": "Toán rời rạc"
+    },
+    {
+        "id": "MI2020",
+        "subjectname": "Xác suất thống kê"
+    },
+    {
+        "id": "MI3052",
+        "subjectname": "Nhập môn các phương pháp tối ưu"
+    },
+    {
+        "id": "MIL1130",
+        "subjectname": "QS chung và KCT bắn súng AK"
+    },
+    {
+        "id": "PE2601",
+        "subjectname": "Chạy"
+    },
+    {
+        "id": "PH1120",
+        "subjectname": "Vật lý đại cương II"
+    }
+]

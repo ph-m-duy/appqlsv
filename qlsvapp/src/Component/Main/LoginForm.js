@@ -54,6 +54,20 @@ export default class LoginForm extends React.Component {
     });
   };
 
+  selectUser = () => {
+    return (
+      <div>
+        {/* <p>Đăng nhập với chức năng</p> */}
+        <select>
+          <option>Chọn chức năng</option>
+          <option>Sinh viên</option>
+          <option>Phụ huynh</option>
+          <option>Admin</option>
+        </select>
+      </div>
+    )
+  }
+
   Wrong = () => {
     if (this.state.wLogin) {
       return (
@@ -69,26 +83,14 @@ export default class LoginForm extends React.Component {
       <div>
         <form className="Login">
           <p className="lg">TÊN ĐĂNG NHẬP</p>
-          <input
-            type="text"
-            onChange={this.handleUsernameChange}
-            value={this.state.username}
-            placeholder="Nhập MSSV"
-          ></input>
+          <input type="text" onChange={this.handleUsernameChange} value={this.state.username} placeholder="Nhập MSSV" />
           <p className="lg">MẬT KHẨU</p>
-          <input
-            type="password"
-            onChange={this.handlePasswordChange}
-            value={this.state.password}
-            placeholder="Nhập CMND/Thẻ căn cước"
-          ></input>
+          <input type="password" onChange={this.handlePasswordChange} value={this.state.password} placeholder="Nhập CMND/Thẻ căn cước" />
           <br />
-          <input
-            type="button"
-            value="Đăng nhập"
-            onClick={() => { this.login(() => this.props.upLogin(), this.wReset, this.state.username, this.state.password); }}
-          />
+          {this.selectUser()}
+          <input type="button" value="Đăng nhập" onClick={() => { this.login(() => this.props.upLogin(), this.wReset, this.state.username, this.state.password); }} />
           {this.Wrong()}
+          <input type="button" value="Quên mật khẩu?" onClick={() => this.props.upforget()} />
           <p>Bạn chưa có tài khoản?</p>
           <input type="button" value="Đăng kí" onClick={() => this.props.upSignup()} />
         </form>

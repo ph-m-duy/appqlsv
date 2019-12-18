@@ -1,35 +1,51 @@
 import React from 'react';
 import './Page.css';
 import Log from './LogPage';
-import Dashboard from './DashBoard';
+import StudentDash from './StudentDashBoard';
+import ParentDash from "./ParentDashBoard";
+import AdminDash from "./AdminDashBoard";
 
 export default class Main extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLogin: false
+            isLogin: "Log"
         }
     }
 
     renderContent = () => {
-        if (this.state.isLogin) {
-            return (
-                <Dashboard updateLogout={this.updateLogoutState}/>
-            );
+        switch (this.state.isLogin) {
+            case "Log": return (<div><Log updateStuLogin={this.updateStudent} /></div>);
+            case "Student": return (<div><StudentDash updateLogout={this.updateLog} /></div>);
+            case "Parent": return (<div><ParentDash updateLogout={this.updateLog}/></div>);
+            case "Admin": return (<div><AdminDash updateLogout={this.updateLog}/></div>);
+            default:
         }
-        return (
-            <Log updateLogin={this.updateLoginState}/>
-        );
+        //     return (
+        //         <Dashboard updateLogout={this.updateLogoutState}/>
+        //     );
+        // }
+        // return (
+        //     <Log updateLogin={this.updateLoginState}/>
+        // );
     }
 
-    updateLoginState = () => {
-        this.setState({isLogin:true});
+    updateLog = () => {
+        this.setState({ isLogin: "Log" });
     }
 
-    updateLogoutState= () => {
-        this.setState({isLogin:false});
+    updateStudent = () => {
+        this.setState({ isLogin: "Student" });
     }
- 
+
+    updateAdmin = () => {
+        this.setState({ isLogin: "Admin" });
+    }
+
+    updateParent = () => {
+        this.setState({ isLogin: "Parent" });
+    }
+
     render() {
         return (
             <div>

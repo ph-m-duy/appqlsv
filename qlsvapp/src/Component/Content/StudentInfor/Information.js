@@ -25,13 +25,13 @@ export default class Information extends React.Component {
         Accept: "*/*",
         "Content-Type": "application/json"
       },
-      body: {},
-      json: true
+      body: JSON.stringify({}),
     };
 
     request(options, function (error, response, body) {
       if (error) throw new Error(error);
-      Profile(body.fullname, body.MSSV, body.startterm, body.major);
+      var bod =JSON.parse(body);
+      if (bod) Profile(bod.fullname, bod.MSSV, bod.startterm, bod.major);
     });
   };
 
@@ -52,6 +52,7 @@ export default class Information extends React.Component {
     return (
       <div className="profile">
         <div className="infor">
+          {this.Infor(this.Profile)}
           <p>Họ và tên: {this.state.fullname}</p>
           <p>MSSV:{this.state.MSSV}</p>
           <p>Kỳ học bắt đầu: {this.state.startterm}</p>

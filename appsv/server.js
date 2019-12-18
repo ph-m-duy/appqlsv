@@ -25,9 +25,6 @@ studenttemp = {
   major: ""
 }
 //----------------------------------------------------------------------------------------------------
-var allsubject = fs.readFileSync("./database/AllSubject.json");
-var AllSubject = JSON.parse(allsubject);
-//----------------------------------------------------------------------------------------------------
 var SubjectTerm = []
 var subject = fs.readFileSync("./database/SubjectTerm.json");
 if (subject) {
@@ -57,7 +54,6 @@ var corsOptions = {
 //----------------------------------------------------------------------------------------------------
 
 app.use(bodyParser.json());
-
 
 
 //-----------------------------------Login-----------------------------------------------------------------
@@ -99,7 +95,7 @@ app.post("/Register", cors(corsOptions), function (req, res, next) {
     // nowUsername = req.body.username;
     var Regis = fs.writeFileSync("./database/Student.json", JSON.stringify(Student), function (err) {
       if (err) throw err;
-      console.log(Student)
+      // console.log(Student)
     });
   }
 });
@@ -107,7 +103,7 @@ app.post("/Register", cors(corsOptions), function (req, res, next) {
 
 //------------------------------------Dashboard----------------------------------------------------------------
 app.post("/Dashboard", cors(corsOptions), function (req, res, next) {
-  console.log("tên đăng nhập:" + nowUsername);
+  // console.log("tên đăng nhập:" + nowUsername);
 
   Student.forEach(item => {
     if (item.username === nowUsername) {
@@ -205,36 +201,48 @@ app.post("/ChangePassword", cors(corsOptions), function (req, res, next) {
 });
 
 
-//---------------------------------------SubjectManage-------------------------------------------------------------
-app.post("/SubjectManage", cors(corsOptions), function (req, res, next) {
+//---------------------------------------SubjectMarkManage-------------------------------------------------------------
+app.post("/SubjectMarkManage", cors(corsOptions), function (req, res, next) {
   console.log(req.body);
-  switch (req.body.check) {
-    case "0":
-      AllSubject.forEach(item => {
-        if (req.body.id != item.id) {
-          res.send("0");
-        }
-        else {
-          res.send(item.subjectname);
-        }
-      })
-      break;
-    case "1":
-      subjecttemp.term = req.body.term;
-      subjecttemp.subject.push(req.body.subject);
-      SubjectTerm.push(subjecttemp);
-      var sub = fs.writeFileSync("./database/SubjectTerm.json", JSON.stringify(SubjectTerm), function (err) {
-        if (err) throw err;
-        console.log(SubjectTerm);
-      })
-      res.send(subjecttemp.subject);
-    case "2":
-      SubjectTerm.forEach((item, index) => {
-        if (item.subjectall.subjectname == req.body.subjectlist.subjectname){
+  var Sub = req.body;
+  SubjectTerm.push(Sub);
+  res.send("1");
+  var SubList = fs.writeFileSync("./database/SubjectMarkTerm.json", JSON.stringify(SubjectTerm), function (err) {
+    if (err) throw err;
+    console.log(SubjectTerm);
+  })
+  // switch (req.body.check) {
+  //   case "0":
+  //     AllSubject.forEach(item => {
+  //       if (req.body.id != item.id) {
+  //         res.send("0");
+  //       }
+  //       else {
+  // AllSubject.forEach(item => {
+  //   if (item.id == req.body.id) {
+  //     res.send(item);
+  //     console.log(item)
+  //   }
+  // })
+  //       }
+  //     })
+  //     break;
+  //   case "1":
+  //     subjecttemp.term = req.body.term;
+  //     subjecttemp.subject.push(req.body.subject);
+  //     SubjectTerm.push(subjecttemp);
+  //     var sub = fs.writeFileSync("./database/SubjectTerm.json", JSON.stringify(SubjectTerm), function (err) {
+  //       if (err) throw err;
+  //       console.log(SubjectTerm);
+  //     })
+  //     res.send(subjecttemp.subject);
+  //   case "2":
+  //     SubjectTerm.forEach((item, index) => {
+  //       if (item.subjectall.subjectname == req.body.subjectlist.subjectname){
 
-        }
-      })
-  }
+  //       }
+  //     })
+  // }
 });
 
 
@@ -251,28 +259,49 @@ app.post("/TimeManage", cors(corsOptions), function (req, res, next) {
 
 
 //--------------------------------------------MoneyManage--------------------------------------------------------
-app.post("/MoneyManage", cors(corsOptions), function (req, res, next) {
+
+//--------------------------------------------MoneyTermManage--------------------------------------------------------
+app.post("/MoneyTermManage", cors(corsOptions), function (req, res, next) {
   console.log(req.body);
-  var moneyreq = JSON.stringify(req.body)
-  var moMa = fs.appendFileSync("./database/MoneyManage.json", moneyreq, function (err) {
-    if (err) throw err;
-    console.log("Saved!");
-  });
+  // var MoTerm = []
+  // var motermreq = fs.readFileSync("./database/MoneyManage.json")
+  // var moTermMa = fs.writeFileSync("./database/MoneyManage.json", moneyreq, function (err) {
+  //   if (err) throw err;
+  //   console.log("Saved!");
+  // });
   res.send("1");
 });
+//--------------------------------------------MoneyMonthManage--------------------------------------------------------
+app.post("/MoneyMonthManage", cors(corsOptions), function (req, res, next) {
+  console.log(req.body);
+  // var momonthreq = JSON.stringify(req.body)
+  // var moMonthMa = fs.writeFileSync("./database/MoneyManage.json", moneyreq, function (err) {
+  //   if (err) throw err;
+  //   console.log("Saved!");
+  // });
+  res.send("1");
+});
+
+
 //----------------------------------------------------------------------------------------------------
 app.post("/MarkManage", cors(corsOptions), function (req, res, next) {
   res.send("Hello");
   console.log(req.body);
 });
+
+
 //----------------------------------------------------------------------------------------------------
 app.post("/MarkChart", cors(corsOptions), function (req, res, next) {
   res.send("Hello");
 });
+
+
 //----------------------------------------------------------------------------------------------------
 app.post("/MoneyChart", cors(corsOptions), function (req, res, next) {
   res.send("Hello");
 });
+
+
 //----------------------------------------------------------------------------------------------------
 app.post("/TimeChart", cors(corsOptions), function (req, res, next) {
   var timeCha = fs.readFileSync("./database/TimeManage.json");

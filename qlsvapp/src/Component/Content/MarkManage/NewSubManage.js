@@ -9,20 +9,18 @@ export default class SubMa extends React.Component {
             term: "",
             id: "",
             sublist: [],
-            submarklist: [],
             subjectname: "",
-            semimark: 0,
-            finalmark: 0,
             checksubject: false,
             checksamesub: false,
             checkdelete: false,
             responsecheck: false,
-            checkmark: false
+            checkmark: false,
+            listflag: "0"
         }
     }
 
 
-    subResList = (_term, _deletecheck, _statuscheck, _submarklist) => {
+    subResList = (_sublist) => {
         var options = {
             method: 'POST',
             url: 'http://localhost:8081/SubjectMarkManage',
@@ -38,13 +36,18 @@ export default class SubMa extends React.Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                term: _term,
-                submarklist: _submarklist
+                sublist: _sublist,
             })
         };
         request(options, function (error, response, body) {
             if (error) throw new Error(error);
         });
+    }
+
+    updateListFlag = (_listflag) => {
+        this.setState({
+            listflag: _listflag
+        })
     }
 
     handleChange = (event) => {
@@ -68,24 +71,20 @@ export default class SubMa extends React.Component {
     }
 
     addAllSubject = () => {
-        var allsub = require("./AllSubject.json");
-        //eslint-disable-next-line react/no-direct-mutation-state
+        var allsub = this.props.AllSubList;
+        console.log(this.props.OwnerList);
         this.state.checksubject = false;
-        // eslint-disable-next-line react/no-direct-mutation-state
         this.state.checksamesub = false;
         console.log(this.state.id);
         allsub.forEach(item => {
             if (item.id === this.state.id) {
                 this.state.sublist.forEach(idem => {
                     if (idem.id === this.state.id) {
-                        //eslint-disable-next-line react/no-direct-mutation-state
                         this.state.checksamesub = true;
                     }
                 })
                 if (this.state.checksamesub === false) {
-                    //eslint-disable-next-line react/no-direct-mutation-state
                     this.state.subjectname = item.subjectname;
-                    //eslint-disable-next-line react/no-direct-mutation-state
                     this.state.checksubject = true;
                 }
                 if (this.state.checksamesub === true) {
@@ -102,7 +101,7 @@ export default class SubMa extends React.Component {
                 subjectname: this.state.subjectname,
             }
             this.setState({
-                sublist: this.state.sublist.concat(newsubject)
+                sublist: this.state.sublist.push(newsubject)
             })
         }
     }
@@ -112,13 +111,11 @@ export default class SubMa extends React.Component {
             alert("Bạn chưa điền mã môn học!!!");
         }
         if (window.confirm("Xác nhận Danh sách môn học của bạn trong kì này???")) {
-            // if (this.state.responsecheck === false) {
-            this.subResList(this.props.thisterm, this.state.deletecheck, this.state.statuscheck, this.state.submarklist)
-            // eslint-disable-next-line react/no-direct-mutation-state
+            this.subResList(this.state.sublist)
             this.state.responsecheck = true;
+            alert("Bạn đã gửi xác nhận danh sách rồi!!!")
         }
-        // if (this.state.responsecheck === true) {
-        alert("Bạn đã gửi xác nhận danh sách rồi!!!")
+
     }
 
     deleteSubject = (id) => {
@@ -132,46 +129,6 @@ export default class SubMa extends React.Component {
         this.setState({
             sublist: this.state.sublist
         })
-    }
-
-    confirmExmark = (id) => {
-        // eslint-disable-next-line react/no-direct-mutation-state
-        this.state.checkmark = false;
-        console.log(this.state.semimark);
-        console.log(this.state.finalmark);
-        console.log(this.state.sublist);
-        this.state.sublist.forEach(item => {
-            if (item.id === id) {
-                if (this.state.semimark === 0 || this.state.finalmark === 0) {
-                    alert("Bạn chưa điền điểm dự kiến đạt được!!!");
-                }
-                else if ((3 >= parseFloat(this.state.semimark) || parseFloat(this.state.semimark) > 10) || (3 >= parseFloat(this.state.semimark) || parseFloat(this.state.semimark) > 10)) {
-                    alert("Điểm dự kiến của môn học đạt được phải lớn hơn 3 và nhỏ hơn bằng 10 ");
-                }
-                else {
-                    // eslint-disable-next-line react/no-direct-mutation-state
-                    this.state.checkmark = true;
-                }
-            }
-        })
-
-        if (this.state.checkmark === true) {
-            const newmarksubject = {
-                id: this.state.id,
-                subjectname: this.state.subjectname,
-                semimark: this.state.semimark,
-                finalmark: this.state.finalmark
-            }
-            this.setState({
-                submarklist: this.state.submarklist.concat(newmarksubject)
-            })
-            console.log(this.state.submarklist);
-        }
-        this.setState({
-            semimark: 0,
-            finalmark: 0
-        })
-        console.log(this.state.submarklist);
     }
 
     subjectForm = () => {
@@ -192,10 +149,7 @@ export default class SubMa extends React.Component {
                             <th width="80px" >Số thứ tự</th>
                             <th width="150px">Mã môn học</th>
                             <th width="400px">Tên môn học</th>
-                            <th width="120px">Điểm dự kiến giữa kì</th>
-                            <th width="100px">Điểm dự kiến cuối kì</th>
                             <th width="50px">Chức năng</th>
-                            <th width="80px">Xác nhận</th>
                         </tr>
                     </thead>
                     <tbody className="BodySubTable">
@@ -204,38 +158,73 @@ export default class SubMa extends React.Component {
                                 <td>{index + 1}</td>
                                 <td>{item.id}</td>
                                 <td>{item.subjectname}</td>
-                                <td><input type="text" value={this.state.semiterm} onChange={this.handleSemiChange} /></td>
-                                <td><input type="text" value={this.state.finalterm} onChange={this.handleFinalChange} /></td>
                                 <td><input type="button" value="Xóa" onClick={() => this.deleteSubject(item.id)} /></td>
-                                <td><input type="button" value="Xác nhận" onClick={() => this.confirmExmark(item.id)} /></td>
                             </tr>
                         )
                         )}
                     </tbody>
                 </table>
                 <input className="SubListSend" type="button" value="Gửi" onClick={() => this.confirmSubject()} />
+                <input className="SubListSend" type="button" value="Quay lại" onClick={() => this.props.backlist()} />
             </div>
         )
     }
 
-    setNowTerm = () => {
-        // eslint-disable-next-line react/no-direct-mutation-state
-        this.state.term = this.props.thisterm
-        if (this.state.term !== "") {
+    trueSubjectList = () => {
+        return (
+            <div>
+                <table border="1" className="subjectable">
+                    <thead>
+                        <tr>
+                            <th width="80px" >Số thứ tự</th>
+                            <th width="150px">Mã môn học</th>
+                            <th width="400px">Tên môn học</th>
+                            <th width="50px">Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody className="BodySubTable">
+                        {this.state.sublist.map((item, index) => (
+                            <tr key={index}>
+                                <td>{index + 1}</td>
+                                <td>{item.id}</td>
+                                <td>{item.subjectname}</td>
+                                <td><input type="button" value="Xóa" onClick={() => this.deleteSubject(item.id)} /></td>
+                            </tr>
+                        )
+                        )}
+                    </tbody>
+                </table>
+            </div>
+        )
+    }
+
+    showSubList = () => {
+        if (this.state.listflag === "0") {
             return (
-                <div>
-                    <p>Nhập mã môn học của Kì học {this.state.term}</p>
-                    {this.subjectForm()}
-                    {this.subjectList()}
-                </div>
+                <div>{this.subjectList()}</div>
+            )
+        } else if (this.state.listflag === "1") {
+            return (
+                <div>{this.trueSubjectList()}</div>
             )
         }
+    }
+
+    setNowTerm = () => {
+        return (
+            <div>
+                <p>Nhập mã môn học của Kì học {this.props.thisterm}</p>
+                {this.subjectForm()}
+                {this.showSubList()}
+            </div>
+        )
     }
 
 
     render() {
         console.log(this.state.resetcheck);
         console.log(this.state.submarklist);
+        this.state.sublist = this.props.OwnerList;
         return (
 
             < div className="SubjectList" >

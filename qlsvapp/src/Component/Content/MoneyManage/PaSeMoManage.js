@@ -20,7 +20,7 @@ export default class TManage extends React.Component {
         return (
             <div>
                 <br></br>
-                <p>Chọn cách thức quản lí chi phí của bạn:</p>
+                <p>Chọn cách thức chu cấp tiền cho Sinh viên của bạn:</p>
                 <input type="button" value="Theo tháng" onClick={() => this.props.selectmonth()} />
                 <input type="button" value="Theo kì" onClick={() => this.props.selectterm()} />
             </div>

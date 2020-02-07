@@ -8,18 +8,19 @@ export default class TManage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            termmoney: 0,
-            selectmoney: "",
-            olaymoney: 0,
-            addlearnmoney: 0,
-            allmoney: 0
+            money: "",
+            term: "",
+            selectmoney: "select",
+            olaymoney: "",
+            addmoney: "",
+            allmoney: ""
         };
     }
 
-    selectMoManage = (callcall, updateMoney) => {
+    selectMoManage = (updateMoney) => {
         var options = {
             method: 'POST',
-            url: 'http://localhost:8081/MoneyManage',
+            url: 'http://localhost:8081/NewMoneyManage',
             headers:
             {
                 'cache-control': 'no-cache',
@@ -35,30 +36,26 @@ export default class TManage extends React.Component {
 
         request(options, function (error, response, body) {
             if (error) throw new Error(error);
-            if (body == "0") {
-                callcall()
-            } else {
-                var bod = JSON.parse(body);
-                console.log(body);
-                updateMoney(bod.termmoney, bod.olaymoney, bod.addlearnmoney, bod.allmoney);
-            }
+            var bod = JSON.parse(body);
+            console.log(body);
         });
     }
 
-    callcall = () => {
-        alert("Thông tin về học phí và chu cấp chi phí vẫn chưa được phụ huynh cập nhật!!!");
+
+    updateMoney = (_allmoney, _oplaymoney, _addlearnmoney) => {
+        this.setState({
+            allmoney: _allmoney,
+            oplaymoney: _oplaymoney,
+            addlearnmoney: _addlearnmoney
+        })
     }
 
-    updateMoney = (_termmoney, _olaymoney, _addlearnmoney, _allmoney) => {
-        alert("Thông tin về chu cấp chi phí đã được phụ huynh cập nhật!!!!.");
-        this.setState({
-            termmoney: _termmoney,
-            olaymoney: _olaymoney,
-            addlearnmoney: _addlearnmoney,
-            allmoney: _allmoney,
-            selectmoney: "select"
-        })
-        alert("Hãy chọn cách để quản lí theo dõi chi tiêu của bản thân theo tháng hoặc theo kì!!!");
+    sentMonthTerm = () => {
+        return (
+            <div>
+                {this.selectMoManage(this.updateMoney, this.state.term)}
+            </div>
+        )
     }
 
     selectMonth = () => {
@@ -79,41 +76,33 @@ export default class TManage extends React.Component {
         })
     }
 
-    checksum = () => {
-        if (window.confirm("Xác nhận kiểm tra thông tin từ phụ huynh???")) {
-            this.selectMoManage(this.callcall, this.updateMoney);
-        }
+    handleChange = (e) => {
+        this.setState({
+            term: e.target.value
+        })
     }
 
     chooseTerm = () => {
         return (
             <div>
                 <p>Quản lý chi tiêu kì học {this.props.nowterm}</p>
-                <input type="button" value="Kiểm tra" onClick={() => this.checksum(this.updateMoney)} />
             </div>
         )
     }
 
     moneyManage = () => {
         switch (this.state.selectmoney) {
-            case "": return (
-                <div>
-                    <p>Bạn chỉ có thể sử dụng tính năng này khi phụ huynh đã nhập số tiền chu cấp</p>
-                    <p>Ấn vào nút kiểm tra để kiểm tra thông tin !!!!</p>
-                </div>
-            )
             case "month": return (
                 <div>
                     <MoMonth
-                        nowterm={this.props.nowterm}
+                        termmonth={this.state.term}
                         backmonth={this.selectChooseMoney}
-                        termmoney={this.state.termmoney}
-                        olaymoney={this.state.olaymoney}
-                        addlearnmoney={this.state.addlearnmoney}
                         allmoney={this.state.allmoney}
+                        oplaymoney={this.state.olaymoney}
+                        addlearnmoney={this.state.addlearnmoney}
                     />
                 </div>);
-            case "term": return (<div><MoTerm backterm={this.selectChooseMoney} /></div>);
+            case "term": return (<div><MoTerm termterm={this.state.term} backterm={this.selectChooseMoney} /></div>);
             case "select": return (<div><SeMoMa selectterm={this.selectTerm} selectmonth={this.selectMonth} sentMonthTerm={this.sentMonthTerm} /></div>);
             default:
         }

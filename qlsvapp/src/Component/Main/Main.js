@@ -15,19 +15,12 @@ export default class Main extends React.Component {
 
     renderContent = () => {
         switch (this.state.isLogin) {
-            case "Log": return (<div><Log updateStuLogin={this.updateStudent} /></div>);
+            case "Log": return (<div><Log updateStuLogin={this.updateStudent} updatePaLogin={this.updateParent} updateAdLogin={this.updateAdmin} /></div>);
             case "Student": return (<div><StudentDash updateLogout={this.updateLog} /></div>);
-            case "Parent": return (<div><ParentDash updateLogout={this.updateLog}/></div>);
-            case "Admin": return (<div><AdminDash updateLogout={this.updateLog}/></div>);
+            case "Parent": return (<div><ParentDash updateLogout={this.updateLog} /></div>);
+            case "Admin": return (<div><AdminDash updateLogout={this.updateLog} /></div>);
             default:
         }
-        //     return (
-        //         <Dashboard updateLogout={this.updateLogoutState}/>
-        //     );
-        // }
-        // return (
-        //     <Log updateLogin={this.updateLoginState}/>
-        // );
     }
 
     updateLog = () => {

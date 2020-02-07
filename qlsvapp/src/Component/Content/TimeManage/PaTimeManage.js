@@ -1,6 +1,6 @@
 import React from "react";
 import TWeekManage from "./NewTWeekManage";
-import TDayManage from "./NewTDayManage";
+import TDayManage from "./PaTDayTimeManage";
 import SeTiMa from "./SeTiManage";
 import request from "request";
 
@@ -26,7 +26,7 @@ export default class TManage extends React.Component {
                 "Cache-Control": "no-cache",
                 Accept: "*/*",
                 "Content-Type": "application/json",
-              },
+            },
         };
 
         request(options, function (error, response, body) {
@@ -79,7 +79,7 @@ export default class TManage extends React.Component {
     render() {
         return (
             <div >
-                <h3>QUẢN LÍ THỜI GIAN SINH VIÊN - YÊU CẦU SINH VIÊN NHẬP ĐÚNG:</h3>
+                <h3>QUẢN LÍ THỜI GIAN SINH VIÊN - PHỤ HUYNH THEO DÕI:</h3>
                 {this.timeManage()}
             </div>
         );

@@ -9,12 +9,12 @@ export default class LoginForm extends React.Component {
             username: "",
             password: "",
             MSSV: "",
-            startterm: "",
+            sex: "",
             major: ""
         };
     }
 
-    register = (checkempty, checksame, callback, _fullname, _username, _password, _MSSV, _statterm, _major) => {
+    register = (checkempty, checksame, callback, _fullname, _username, _password, _MSSV, _sex, _major) => {
         var options = {
             method: "POST",
             url: "http://localhost:8081/Register",
@@ -30,7 +30,7 @@ export default class LoginForm extends React.Component {
                 username: _username,
                 password: _password,
                 MSSV: _MSSV,
-                startterm: _statterm,
+                sex: _sex,
                 major: _major
             }),
         };
@@ -84,9 +84,9 @@ export default class LoginForm extends React.Component {
                     MSSV: _val
                 })
                 break;
-            case "startterm":
+            case "sex":
                 this.setState({
-                    startterm: _val
+                    sex: _val
                 })
                 break;
             case "major":
@@ -110,19 +110,11 @@ export default class LoginForm extends React.Component {
                     <p className="rg">Mã số Sinh viên</p>
                     <input type="text" value={this.state.MSSV} onChange={e => this.updateVal("MSSV", e)}   ></input>
 
-                    <p className="rg">Kì bắt đầu học</p>
-                    <select startterm={this.state.value} onChange={e => this.updateVal("startterm", e)}>
-                        <option>Chọn Kì</option>
-                        <option value="20141">20141</option>
-                        <option value="20142">20142</option>
-                        <option value="20151">20151</option>
-                        <option value="20152">20152</option>
-                        <option value="20161">20161</option>
-                        <option value="20162">20162</option>
-                        <option value="20171">20171</option>
-                        <option value="20172">20172</option>
-                        <option value="20181">20181</option>
-                        <option value="20182">20182</option>
+                    <p className="rg">Giới tính</p>
+                    <select sex={this.state.value} onChange={e => this.updateVal("sex", e)}>
+                        <option value="">Chọn giới tính</option>
+                        <option value="nam">nam</option>
+                        <option value="nữ">nữ</option>
                     </select>
 
                     <p className="rg">Tên đăng nhập</p>
@@ -137,7 +129,7 @@ export default class LoginForm extends React.Component {
                     <div className="Sign" >
                         <input type="button"
                             value="Đăng kí"
-                            onClick={() => { this.register(this.checkempty, this.checksame, this.successRegister, this.state.fullname, this.state.username, this.state.password, this.state.MSSV, this.state.startterm, this.state.major); }} />
+                            onClick={() => { this.register(this.checkempty, this.checksame, this.successRegister, this.state.fullname, this.state.username, this.state.password, this.state.MSSV, this.state.sex, this.state.major); }} />
                     </div>
                     <div className="ReturnLogin" >
                         <input type="button" value="Trở lại trang Đăng nhập" onClick={() => this.props.upReturn()} />

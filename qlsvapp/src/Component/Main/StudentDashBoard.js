@@ -11,13 +11,16 @@ import MoneyKPI from "../Content/MoneyKPI/MoneyKPI";
 import MarkKPI from "../Content/MarkKPI/MarkKPI";
 import Contact from "../Content/Support/Contact";
 import AboutUs from "../Content/Support/AboutUs";
+import moment from "moment";
 
-export default class DashBoard extends React.Component {
+export default class StudentDashBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       contentState: 0,
-      fullname: ""
+      fullname: "",
+      week: "",
+      term: ""
     };
   }
 
@@ -46,13 +49,18 @@ export default class DashBoard extends React.Component {
 
     request(options, function (error, response, body) {
       if (error) throw new Error(error);
-      callname(body);
+      var bod = JSON.parse(body);
+      console.log(bod);
+      console.log(bod.name);
+      callname(bod.name, bod.week, bod.term);
     });
   };
 
-  callname = _name => {
+  callname = (_name, _week, _term) => {
     this.setState({
-      fullname: _name
+      fullname: _name,
+      week: _week,
+      term: _term
     });
   };
 
@@ -62,14 +70,14 @@ export default class DashBoard extends React.Component {
 
   renderContent = () => {
     switch (this.state.contentState) {
-      case 1.1: return (<div className="ql"><InforStudent /></div>);
-      case 1.2: return (<div className="ql"><ChangePassword /></div>);
-      case 2.1: return (<div className="ql"><TimeManage /></div>);
-      case 2.2: return (<div className="ql"><MoneyManage /></div>);
-      case 2.3: return (<div className="ql"><MarkSubManage /></div>);
-      case 3.1: return (<div className="ql"><TimeKPI /></div>);
-      case 3.2: return (<div className="ql"><MoneyKPI /></div>);
-      case 3.3: return (<div className="ql"><MarkKPI /></div>);
+      case 1.1: return (<div className="ql"><InforStudent nowterm={this.state.term} /></div>);
+      case 1.2: return (<div className="ql"><ChangePassword nowterm={this.state.term} /></div>);
+      case 2.1: return (<div className="ql"><TimeManage nowterm={this.state.term} nowweek={this.state.week} /></div>);
+      case 2.2: return (<div className="ql"><MoneyManage nowterm={this.state.term} /></div>);
+      case 2.3: return (<div className="ql"><MarkSubManage nowterm={this.state.term} /></div>);
+      case 3.1: return (<div className="ql"><TimeKPI nowterm={this.state.term} /></div>);
+      case 3.2: return (<div className="ql"><MoneyKPI nowterm={this.state.term} /></div>);
+      case 3.3: return (<div className="ql"><MarkKPI nowterm={this.state.term} /></div>);
       case 4: return (<div className="ql"><Contact /></div>);
       case 5: return (<div className="ql"><AboutUs /></div>);
       default: return (<div className="ql"><Home /></div>);
@@ -84,7 +92,7 @@ export default class DashBoard extends React.Component {
             <h1>TRANG QUẢN LÍ THEO DÕI VÀ TÍNH KPI SINH VIÊN</h1>
           </div>
           <div className="s1">
-            <p>Học kỳ 20191,tuần thứ 13,ngày 19 tháng 11 năm 2019</p>
+            <p>Học kỳ {this.state.term},{this.state.week}, {moment().format('dddd')} ngày {moment().format('DD/MM/YYYY')}</p>
           </div>
           <div className="body">
             <div className="Hello">Xin chào, {this.state.fullname}</div>
@@ -108,13 +116,13 @@ export default class DashBoard extends React.Component {
                     <div className="sp">
                       <input type="button" value="QUẢN LÍ THỜI GIAN" onClick={() => { this.updateContentState(2.1); }} />
                       <input type="button" value="QUẢN LÍ CHI TIÊU" onClick={() => { this.updateContentState(2.2); }} />
-                      <input type="button" value="QUẢN LÍ ĐIỂM DỰ KIẾN" onClick={() => { this.updateContentState(2.3); }} />
+                      <input type="button" value="QUẢN LÍ MÔN HỌC" onClick={() => { this.updateContentState(2.3); }} />
                     </div>
                   </div>
                 </li>
                 <li>
                   <div className="SP">
-                    <input type="button" value="TÍNH KPI SINH VIÊN" ></input>
+                    <input type="button" value="TÍNH KPI SV" ></input>
                     <div className="sp">
                       <input type="button" value="KPI THỜI GIAN" onClick={() => { this.updateContentState(3.1); }} />
                       <input type="button" value="KPI CHI TIÊU" onClick={() => { this.updateContentState(3.2); }} />

@@ -31,7 +31,6 @@
   color: rgb(103, 9, 226);
   text-transform: uppercase;
   display: inline-block;
-  position: fix;
   font-size: 15px;
   padding: 5px 0 25px 0;
   border-style: double;
@@ -179,7 +178,7 @@
 .Login {
   padding: 25px 0 0 0;
   border-style: groove;
-  height: 420px;
+  height: 490px;
   width: 300px;
   margin: 0 auto;
   background-color: #89D837;
@@ -193,7 +192,7 @@
 .Register {
   border-style: groove;
   width: 500px;
-  height: 1050px;
+  height: 770px;
   margin: 0 auto;
   background-color: #E4ECB7;
 }
@@ -280,6 +279,12 @@
   color: rgb(2, 95, 18);
 }
 
+.changepass {
+  border-radius: 10px;
+  height: 30px;
+  color: #050405;
+}
+
 .CiSign {
   margin: 15px 0 20px 0;
 }
@@ -305,14 +310,96 @@
   font-weight: 550;
 }
 
-/* .subjectable{
-  width: ;
-} */
-
-.BodySubTable input{
+.BodySubTable input {
   width: 100%;
 }
 
-/* .SubListSend{
+.AdMenu ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  left: 0;
+}
 
-} */
+.AdMenu {
+  padding: 15px 0 120px 0;
+  left: 0;
+}
+
+.AdMenu ul {
+  float: left;
+}
+
+.AdMenu input {
+  outline: none;
+  border: none;
+  background: rgb(117, 211, 117);
+  font-weight: 700;
+}
+
+.AdMenu input:hover {
+  color: rgb(212, 80, 87);
+}
+
+.AdMenu ul li {
+  color: rgb(103, 9, 226);
+  text-transform: uppercase;
+  position: fix;
+  font-size: 15px;
+  padding: 5px 0 25px 0;
+  border-style: double;
+  background: rgb(117, 211, 117);
+  width: 180px;
+  height: 30px;
+  margin: 0 auto;
+}
+
+.showContent {
+  border-style: groove;
+  background-color: #E4ECB7;
+  float: right;
+  margin: -120px 0 0 auto;
+  width: 75%;
+  height: 450px;
+  /* overflow: scroll; */
+}
+
+.ADHome ul {
+  list-style-type: none;
+  color: blue;
+  position: relative;
+  font-weight: 550;
+}
+
+.ADbody {
+  border-style: groove;
+  border-color: rgb(155, 218, 218);
+  margin: -20px 5px 0 5px;
+  padding: 0px 0px 150px 0px;
+  background-color: rgb(175, 206, 211);
+  height: 500px;
+}
+
+.addSubject {
+  /* min-height: 400px; */
+  height: 450px;
+  overflow: auto;
+}
+
+.paMoney {
+  border-style: groove;
+  margin: -5px 25px 25px 25px;
+  background-color: rgb(220, 226, 166);
+}
+
+.receiveMo {
+  border-style: groove;
+  margin: -5px 25px 25px 25px;
+  background-color: rgb(220, 226, 166);
+}
+
+.saveMo {
+  border-style: groove;
+  margin: -5px 25px 25px 25px;
+  background-color: rgb(220, 226, 166);
+}

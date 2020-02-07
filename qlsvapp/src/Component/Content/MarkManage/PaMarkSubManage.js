@@ -1,5 +1,5 @@
 import React from "react";
-import SubMa from "./NewSubManage";
+import SubMa from "./PaSubManage";
 import MarkHope from "./MarkHopeMa";
 import MManage from "./MManage";
 import request from "request";
@@ -63,25 +63,18 @@ export default class MarkSub extends React.Component {
 
     markSubManage = () => {
         switch (this.state.selectmark) {
-            case "subject": return (<div><SubMa AllSubList={this.state.sublist} OwnerList={this.state.subOwnlist} termweek={this.props.nowterm} backlist={this.selectChooseSub} /></div>);
+            case "subject": return (<div><SubMa nowterm={this.props.nowterm} AllSubList={this.state.sublist} OwnerList={this.state.subOwnlist} termweek={this.props.nowterm} backlist={this.selectChooseSub} /></div>);
             case "mark": return (<div><MarkHope termday={this.props.nowterm} backmark={this.selectChooseSub} /></div>);
             case "select": return (<div><MManage selectsubject={this.selectSubject} selectmark={this.selectMarkSub} /></div>);
             default:
         }
     }
 
-    chooseTerm = () => {
-        let term = this.props.nowterm;
-        return (
-            <SubMa thisterm={term} thisreset={true} />
-        )
-    }
-
 
     render() {
         return (
             <div>
-                <h3>QUẢN LÍ MÔN HỌC SINH VIÊN TRONG KÌ - YÊU CẦU SINH VIÊN NHẬP ĐÚNG:</h3>
+                <h3>QUẢN LÍ MÔN HỌC SINH VIÊN TRONG KÌ - PHỤ HUYNH THEO DÕI:</h3>
                 {this.markSubManage()}
             </div>
         )

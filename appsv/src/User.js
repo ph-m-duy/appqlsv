@@ -1,5 +1,7 @@
 var fs = require("fs");
 var uId = require('uuid/v1');
+var userparent;
+var recentinfor;
 
 class User {
     constructor() {
@@ -23,7 +25,16 @@ class User {
 
     createNewUser(user) {
         user.id = uId();
+        user.position = "Student";
         this.Student.push(user);
+        this.spSaveDataWithJSON();
+    }
+
+    createPaNewUser(user) {
+        userparent = JSON.parse(JSON.stringify(user));
+        userparent.password = "123";
+        userparent.position = "Parent";
+        this.Student.push(userparent);
         this.spSaveDataWithJSON();
     }
 
@@ -38,12 +49,48 @@ class User {
         }
     }
 
-    readUser(user) {
-        return "User";
+    changeUser(user, newData) {
+        recentinfor = user;
+        user = JSON.parse(JSON.stringify(newData));
+        user.id = recentinfor.id;
+        user.position = recentinfor.position;
+        user.username = recentinfor.username;
+        user.password = recentinfor.password;
+        return user;
+    }
+
+    changePassWord(userName, newData) {
+        var index = this.Student.findIndex(user => {
+            return userName === user.username;
+        })
+
+        if (index >= 0) {
+            this.Student[index].passWord = newData;
+            this.spSaveDataWithJSON();
+        }
+    }
+
+    positionLogin(userName, passWord, position) {
+        var index = this.Student.findIndex(user => {
+            return userName === user.username && passWord === user.password && position === user.position;
+        })
+        return index;
+    }
+
+    readUser(userName) {
+        var index = this.Student.findIndex(user => {
+            return userName === user.username;
+        })
+
+        return this.Student[index];
     }
 
     deleteUser(user) {
 
+    }
+
+    countUser(){
+        
     }
 }
 

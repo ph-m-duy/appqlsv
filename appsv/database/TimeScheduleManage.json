@@ -1,0 +1,68 @@
+[
+    {
+        "username": "duy",
+        "schetilist": [
+            {
+                "event": "Đi học trên trường",
+                "starttime": "07:30",
+                "endtime": "10:30",
+                "currentday": "Sunday",
+                "currentmoment": "19/01/2020"
+            },
+            {
+                "event": "Chơi Game",
+                "starttime": "10:30",
+                "endtime": "11:00",
+                "currentday": "Sunday",
+                "currentmoment": "19/01/2020"
+            },
+            {
+                "event": "Đi ăn",
+                "starttime": "11:00",
+                "endtime": "11:30",
+                "currentday": "Monday",
+                "currentmoment": "20/01/2020"
+            }
+        ]
+    },
+    {
+        "username": "dương",
+        "schetilist": [
+            {
+                "event": "Đi ngủ",
+                "starttime": "00:00",
+                "endtime": "10:00",
+                "currentday": "Friday",
+                "currentmoment": "07/02/2020"
+            },
+            {
+                "event": "Đi ăn",
+                "starttime": "11:00",
+                "endtime": "12:00",
+                "currentday": "Friday",
+                "currentmoment": "07/02/2020"
+            },
+            {
+                "event": "Chơi Game",
+                "starttime": "13:00",
+                "endtime": "15:00",
+                "currentday": "Friday",
+                "currentmoment": "07/02/2020"
+            },
+            {
+                "event": "Học ở nhà",
+                "starttime": "16:00",
+                "endtime": "17:00",
+                "currentday": "Friday",
+                "currentmoment": "07/02/2020"
+            },
+            {
+                "event": "Chơi thể thao",
+                "starttime": "17:30",
+                "endtime": "18:30",
+                "currentday": "Friday",
+                "currentmoment": "07/02/2020"
+            }
+        ]
+    }
+]
